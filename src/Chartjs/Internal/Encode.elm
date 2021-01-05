@@ -3,6 +3,7 @@ module Chartjs.Internal.Encode exposing
     , encodeArc
     , encodeAxis
     , encodeBarChartDataSet
+    , encodeBubbleChartDataSet
     , encodeData
     , encodeDataset
     , encodeDoughnutAndPieDataSet
@@ -36,6 +37,7 @@ module Chartjs.Internal.Encode exposing
 import Chartjs.Common as Common
 import Chartjs.Data
 import Chartjs.DataSets.Bar
+import Chartjs.DataSets.Bubble
 import Chartjs.DataSets.DoughnutAndPie
 import Chartjs.DataSets.Line
 import Chartjs.DataSets.Polar
@@ -67,6 +69,35 @@ encodeBarChartDataSet barChartDataSet =
         |> Encode.maybeCustomField "hoverBorderColor" (encodePointProperty Encode.encodeColor) barChartDataSet.hoverBorderColor
         |> Encode.maybeCustomField "hoverBorderWidth" (encodePointProperty Encode.float) barChartDataSet.hoverBorderWidth
         |> Encode.toValue
+
+
+encodeBubbleChartDataSet : Chartjs.DataSets.Bubble.DataSet -> Encode.Value
+encodeBubbleChartDataSet bubbleChartDataSet =
+    Encode.beginObject
+        |> Encode.stringField "label" bubbleChartDataSet.label
+        |> Encode.stringField "type" "bubble"
+        |> Encode.listField "data" encodeBubbleDatum bubbleChartDataSet.data
+        |> Encode.maybeStringField "xAxisID" bubbleChartDataSet.xAxisID
+        |> Encode.maybeStringField "yAxisID" bubbleChartDataSet.yAxisID
+        |> Encode.maybeCustomField "backgroundColor" (encodePointProperty Encode.encodeColor) bubbleChartDataSet.backgroundColor
+        |> Encode.maybeCustomField "borderColor" (encodePointProperty Encode.encodeColor) bubbleChartDataSet.borderColor
+        |> Encode.maybeCustomField "borderWidth" (encodePointProperty Encode.float) bubbleChartDataSet.borderWidth
+        |> Encode.maybeCustomField "hoverBackgroundColor" (encodePointProperty Encode.encodeColor) bubbleChartDataSet.hoverBackgroundColor
+        |> Encode.maybeCustomField "hoverBorderColor" (encodePointProperty Encode.encodeColor) bubbleChartDataSet.hoverBorderColor
+        |> Encode.maybeCustomField "hoverBorderWidth" (encodePointProperty Encode.float) bubbleChartDataSet.hoverBorderWidth
+        |> Encode.maybeCustomField "hoverRadius" (encodePointProperty Encode.float) bubbleChartDataSet.hoverRadius
+        |> Encode.maybeCustomField "pointStyle" (encodePointProperty encodePointStyle) bubbleChartDataSet.pointStyle
+        |> Encode.maybeCustomField "radius" (encodePointProperty Encode.float) bubbleChartDataSet.radius
+        |> Encode.toValue
+
+
+encodeBubbleDatum : Chartjs.DataSets.Bubble.Datum -> Encode.Value
+encodeBubbleDatum datum =
+    Encode.object
+        [ ( "x", Encode.float datum.x )
+        , ( "y", Encode.float datum.y )
+        , ( "r", Encode.float datum.r )
+        ]
 
 
 encodeDoughnutAndPieDataSet : Chartjs.DataSets.DoughnutAndPie.DataSet -> Encode.Value
@@ -282,6 +313,9 @@ encodeDataset dataSet =
 
         Chartjs.Data.LineData lineChartDataSet ->
             encodeLineChartDataSet lineChartDataSet
+
+        Chartjs.Data.BubbleData bubbleChartDataSet ->
+            encodeBubbleChartDataSet bubbleChartDataSet
 
         Chartjs.Data.PieData doughnutAndPieDataSet ->
             encodeDoughnutAndPieDataSet doughnutAndPieDataSet

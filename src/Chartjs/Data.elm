@@ -13,6 +13,7 @@ along with the corresponding labels
 -}
 
 import Chartjs.DataSets.Bar as Bar
+import Chartjs.DataSets.Bubble as Bubble
 import Chartjs.DataSets.DoughnutAndPie as DoughnutAndPie
 import Chartjs.DataSets.Line as Line
 import Chartjs.DataSets.Polar as Polar
@@ -27,6 +28,7 @@ it is possible to put multiple types of dataset on one chart
 type DataSet
     = BarData Bar.DataSet
     | LineData Line.DataSet
+    | BubbleData Bubble.DataSet
     | PieData DoughnutAndPie.DataSet
     | PolarData Polar.DataSet
 

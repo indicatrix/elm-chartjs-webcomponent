@@ -38,3 +38,8 @@ An example:
 ```
 
 Some basic examples are included in this repository under the **examples/** directory. However, adding the web component to these is left as an exercise for the reader. Good luck.
+
+## Fork Updates
+
+* Added mixed charts
+* Added bubble charts
