@@ -1,7 +1,14 @@
-# indicatrix/elm-chartjs-webcomponent
-### forked from [blissfully/elm-chartjs-webcomponent](https://github.com/blissfully/elm-chartjs-webcomponent/)
+# zdebeer99/elm-chartjs-webcomponent
+### forked from [indicatrix/elm-chartjs-webcomponent](https://github.com/indicatrix/elm-chartjs-webcomponent/)
 
 [Chartjs](https://www.chartjs.org/) is a robust, featureful Javascript charting library. This module provides Elm types which work in conjunction with a web-component. While there are some limitations to this, this module should provide enough functionality for the majority of charts to work.
+
+
+**Changes in this fork**
+
+* Added mixed charts
+* Added bubble charts
+
 
 ## Getting Started
 The first step is to add the webcomponent.
@@ -38,8 +45,3 @@ An example:
 ```
 
 Some basic examples are included in this repository under the **examples/** directory. However, adding the web component to these is left as an exercise for the reader. Good luck.
-
-## Fork Updates
-
-* Added mixed charts
-* Added bubble charts
